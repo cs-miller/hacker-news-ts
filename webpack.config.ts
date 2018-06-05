@@ -4,9 +4,12 @@ import webpack from 'webpack';
 
 export default (): webpack.Configuration => {
   return {
-    devtool: 'inline-source-map',
+    devtool:
+      process.env.NODE_ENV === 'production'
+        ? 'nosources-source-map'
+        : 'inline-source-map',
     entry: './src/index.tsx',
-    mode: process.env.production ? 'production' : 'development',
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     module: {
       rules: [
         {

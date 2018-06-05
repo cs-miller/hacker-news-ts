@@ -1,10 +1,4 @@
 {
-  "presets": [
-    "env",
-    {
-      "module": false,
-      "loose": true
-    }
-  ],
+  "presets": ["env", { "modules": false, "loose": true }],
   "plugins": ["graphql-tag"]
 }
