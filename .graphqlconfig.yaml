@@ -1,6 +1,6 @@
 projects:
   hacker-news-ts:
-    schemaPath: schema.json
+    schemaPath: schema.graphql
     extensions:
       endpoints:
         prod: 'https://hn-gql.now.sh'
