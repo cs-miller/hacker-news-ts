@@ -26,7 +26,7 @@ export default (): webpack.Configuration => {
       new HTMLWebpackPlugin({
         title: 'Hacker News',
         template: 'src/index.html'
-      })
+      }),
     ],
     output: {
       filename: 'bundle.js',

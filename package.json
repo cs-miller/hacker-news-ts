@@ -9,7 +9,7 @@
     "build": "TS_NODE_PROJECT=\"webpack-tsconfig.json\" webpack --require ts-node/register",
     "build:prod": "NODE_ENV='production' yarn build",
     "serve": "ts-node --project ./webpack-tsconfig.json ./node_modules/.bin/webpack-serve",
-    "generate": "apollo-codegen generate src/*.tsx --project-name hacker-news-ts --target typescript-modern --add-typename"
+    "generate": "apollo-codegen generate src/**/*.tsx --project-name hacker-news-ts --target typescript-modern --add-typename"
   },
   "author": "Christopher Miller",
   "license": "MIT",
