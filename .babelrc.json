@@ -1,0 +1,10 @@
+{
+  "presets": [
+    "env",
+    {
+      "module": false,
+      "loose": true
+    }
+  ],
+  "plugins": ["graphql-tag"]
+}

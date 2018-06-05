@@ -1,0 +1,39 @@
+{
+  "name": "hacker-news-ts",
+  "version": "1.0.0",
+  "description": "a hacker news frontend written in typescript",
+  "main": "index.js",
+  "scripts": {
+    "build": "TS_NODE_PROJECT=\"webpack-tsconfig.json\" webpack --require ts-node/register",
+    "build:prod": "PRODUCTION=true npm run build",
+    "serve": "ts-node --project ./webpack-tsconfig.json ./node_modules/.bin/webpack-serve",
+    "test": "jest"
+  },
+  "author": "Christopher Miller",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/html-webpack-plugin": "^2.30.3",
+    "@types/node": "^10.3.0",
+    "@types/react": "^16.3.16",
+    "@types/react-dom": "^16.0.5",
+    "@types/webpack": "^4.4.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-graphql-tag": "^1.6.0",
+    "babel-preset-env": "^1.7.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^4.3.1",
+    "ts-node": "^6.1.0",
+    "tsconfig-paths": "^3.3.2",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.1",
+    "webpack": "^4.10.2",
+    "webpack-command": "^0.2.0",
+    "webpack-serve": "^1.0.2"
+  }
+}
