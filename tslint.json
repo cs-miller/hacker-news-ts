@@ -7,7 +7,7 @@
     "curly": false,
     "interface-name": false,
     "object-literal-sort-keys": false,
-    "quotemark": [true, "single"],
+    "quotemark": false,
     "trailing-comma": false,
     "variable-name": false
   },

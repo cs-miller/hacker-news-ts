@@ -1,3 +1,4 @@
 node_modules/
 dist/
 __generated__/
+.DS_Store

@@ -1,21 +1,42 @@
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { resolve } from 'path';
 import webpack from 'webpack';
 
+const production = process.env.NODE_ENV === 'production';
+
 export default (): webpack.Configuration => {
   return {
-    devtool:
-      process.env.NODE_ENV === 'production'
-        ? 'nosources-source-map'
-        : 'inline-source-map',
-    entry: './src/index.tsx',
-    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+    devtool: production ? 'nosources-source-map' : 'inline-source-map',
+    entry: { main: './src/index.tsx' },
+    mode: production ? 'production' : 'development',
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      }
+    },
     module: {
       rules: [
         {
           test: /(\.js$|\.ts(x?)$)/,
           use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }],
           exclude: /node_modules/
+        },
+        {
+          test: /\.css$/,
+          use: [
+            production ? MiniCssExtractPlugin.loader : 'style-loader',
+            'css-loader',
+            'postcss-loader'
+          ]
+        },
+        {
+          test: /\.(ttf|eot|svg)$/,
+          use: 'file-loader'
+        },
+        {
+          test: /\.(woff|woff2)$/,
+          use: 'url-loader'
         }
       ]
     },
@@ -27,9 +48,13 @@ export default (): webpack.Configuration => {
         title: 'Hacker News',
         template: 'src/index.html'
       }),
+      new MiniCssExtractPlugin({
+        filename: production ? '[name].[hash].css' : '[name].css',
+        chunkFilename: production ? '[id].[hash].css' : '[id].css'
+      })
     ],
     output: {
-      filename: 'bundle.js',
+      filename: '[name].[chunkhash].js',
       path: resolve(__dirname, 'dist')
     }
   };
