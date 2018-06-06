@@ -19,7 +19,16 @@ export default (): webpack.Configuration => {
       rules: [
         {
           test: /(\.js$|\.ts(x?)$)/,
-          use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }],
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['env'],
+                plugins: ['graphql-tag', 'syntax-dynamic-import']
+              }
+            },
+            { loader: 'ts-loader' }
+          ],
           exclude: /node_modules/
         },
         {
@@ -27,7 +36,12 @@ export default (): webpack.Configuration => {
           use: [
             production ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
-            'postcss-loader'
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [require('cssnano'), require('autoprefixer')]
+              }
+            }
           ]
         },
         {

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "esnext",
+    "module": "esnext",
+    "target": "es2017",
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
@@ -11,7 +11,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "outDir": "./dist/",
-    "sourceMap": true
+    "sourceMap": true,
+    "importHelpers": true
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }
