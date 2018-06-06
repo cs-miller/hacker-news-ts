@@ -7,9 +7,10 @@ import {
   StoriesFeedPaginationQuery,
   StoriesFeedPaginationQueryVariables
 } from './__generated__/StoriesFeedPaginationQuery';
-import { StoryCard, StoryCard_story } from './StoryCard';
+import { StoryCard_story } from './StoryCard';
+import { StoryFeedRenderer } from './StoryFeedRenderer';
 
-class TQuery extends Query<
+class TypedQuery extends Query<
   StoriesFeedPaginationQuery,
   StoriesFeedPaginationQueryVariables
 > {}
@@ -38,7 +39,7 @@ const query = gql`
 `;
 
 export const StoryFeedPaginationContainer = () => (
-  <TQuery
+  <TypedQuery
     query={query}
     variables={{
       type: FeedType.TOP,
@@ -47,7 +48,35 @@ export const StoryFeedPaginationContainer = () => (
   >
     {({ data, loading, fetchMore }) => {
       if (loading) return <pre>Loading...</pre>;
-      return data.storyFeed.edges.map(edge => <StoryCard story={edge.node} />);
+      return (
+        <StoryFeedRenderer
+          stories={data}
+          onLoadMore={() =>
+            fetchMore({
+              query,
+              variables: {
+                cursor: data.storyFeed.pageInfo.endCursor,
+                count: 10,
+                type: FeedType.TOP
+              },
+              updateQuery: (previousResult, { fetchMoreResult }) => {
+                const newEdges = fetchMoreResult.storyFeed.edges;
+                const pageInfo = fetchMoreResult.storyFeed.pageInfo;
+
+                return newEdges.length
+                  ? {
+                      storyFeed: {
+                        __typename: previousResult.storyFeed.__typename,
+                        edges: [...previousResult.storyFeed.edges, ...newEdges],
+                        pageInfo
+                      }
+                    }
+                  : previousResult;
+              }
+            })
+          }
+        />
+      );
     }}
-  </TQuery>
+  </TypedQuery>
 );
