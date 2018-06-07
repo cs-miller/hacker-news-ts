@@ -68,7 +68,7 @@ export default (): webpack.Configuration => {
       })
     ],
     output: {
-      filename: '[name].[chunkhash].js',
+      filename: '[name].[hash].js',
       path: resolve(__dirname, 'dist')
     }
   };

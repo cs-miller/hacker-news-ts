@@ -1,30 +1,33 @@
-import { Button, Classes } from '@blueprintjs/core';
+import { ApolloQueryResult } from 'apollo-client';
 import React from 'react';
 
-import { ApolloQueryResult } from 'apollo-client';
-import { StoriesFeedPaginationQuery } from './__generated__/StoriesFeedPaginationQuery';
+import {
+  StoriesFeedPaginationQuery,
+  StoriesFeedPaginationQuery_storyFeed_edges
+} from './__generated__/StoriesFeedPaginationQuery';
+import { StoryCard } from './StoryCard';
 
 interface Props {
   onLoadMore: () => Promise<ApolloQueryResult<StoriesFeedPaginationQuery>>;
-  stories: StoriesFeedPaginationQuery;
+  stories: StoriesFeedPaginationQuery_storyFeed_edges[];
 }
 
 export const StoryFeedRenderer: React.SFC<Props> = props => {
   return (
-    <div>
-      <ol style={{ flex: 1 }}>
-        {props.stories.storyFeed.edges.map(edge => (
-          <li key={edge.cursor} style={{ flex: 1 }}>
-            {edge.node.title}
-          </li>
-        ))}
-      </ol>
-      <Button
-        onClick={props.onLoadMore}
-        className={`${Classes.FILL} ${Classes.INTENT_PRIMARY}`}
-      >
-        Load More
-      </Button>
-    </div>
+    <>
+      <div className="feed">
+        <ol>
+          {props.stories.map(
+            edge =>
+              edge.node ? (
+                <StoryCard story={edge.node} key={edge.cursor} />
+              ) : null
+          )}
+        </ol>
+      </div>
+      <button className="load-more" onClick={props.onLoadMore}>
+        <h1>Load More</h1>
+      </button>
+    </>
   );
 };

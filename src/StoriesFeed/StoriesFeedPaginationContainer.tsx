@@ -1,16 +1,19 @@
 import gql from 'graphql-tag';
+import { pathOr } from 'ramda';
 import React from 'react';
 import { Query } from 'react-apollo';
 
 import {
   FeedType,
   StoriesFeedPaginationQuery,
+  StoriesFeedPaginationQuery_storyFeed_edges,
+  StoriesFeedPaginationQuery_storyFeed_pageInfo,
   StoriesFeedPaginationQueryVariables
 } from './__generated__/StoriesFeedPaginationQuery';
 import { StoryCard_story } from './StoryCard';
 import { StoryFeedRenderer } from './StoryFeedRenderer';
 
-class TypedQuery extends Query<
+class TypedApolloQuery extends Query<
   StoriesFeedPaginationQuery,
   StoriesFeedPaginationQueryVariables
 > {}
@@ -39,7 +42,7 @@ const query = gql`
 `;
 
 export const StoryFeedPaginationContainer = () => (
-  <TypedQuery
+  <TypedApolloQuery
     query={query}
     variables={{
       type: FeedType.TOP,
@@ -50,24 +53,24 @@ export const StoryFeedPaginationContainer = () => (
       if (loading) return <pre>Loading...</pre>;
       return (
         <StoryFeedRenderer
-          stories={data}
+          stories={getEdges(data)}
           onLoadMore={() =>
             fetchMore({
               query,
               variables: {
-                cursor: data.storyFeed.pageInfo.endCursor,
+                cursor: getPageInfo(data).endCursor,
                 count: 10,
                 type: FeedType.TOP
               },
               updateQuery: (previousResult, { fetchMoreResult }) => {
-                const newEdges = fetchMoreResult.storyFeed.edges;
-                const pageInfo = fetchMoreResult.storyFeed.pageInfo;
+                const newEdges = getEdges(fetchMoreResult);
+                const pageInfo = getPageInfo(fetchMoreResult);
 
                 return newEdges.length
                   ? {
                       storyFeed: {
-                        __typename: previousResult.storyFeed.__typename,
-                        edges: [...previousResult.storyFeed.edges, ...newEdges],
+                        __typename: 'StoryConnection',
+                        edges: [...getEdges(previousResult), ...newEdges],
                         pageInfo
                       }
                     }
@@ -78,5 +81,23 @@ export const StoryFeedPaginationContainer = () => (
         />
       );
     }}
-  </TypedQuery>
+  </TypedApolloQuery>
 );
+
+const getEdges = (
+  data: StoriesFeedPaginationQuery | undefined
+): StoriesFeedPaginationQuery_storyFeed_edges[] =>
+  pathOr<StoriesFeedPaginationQuery_storyFeed_edges[]>(
+    [],
+    ['storyFeed', 'edges'],
+    data
+  );
+
+const getPageInfo = (
+  data: StoriesFeedPaginationQuery | undefined
+): StoriesFeedPaginationQuery_storyFeed_pageInfo =>
+  pathOr<StoriesFeedPaginationQuery_storyFeed_pageInfo>(
+    { __typename: 'PageInfo', hasNextPage: false, endCursor: null },
+    ['storyFeed', 'pageInfo'],
+    data
+  );
