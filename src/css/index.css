@@ -7,10 +7,6 @@ a:visited {
   color: grey;
 }
 
-ol {
-  list-style-position: inside;
-}
-
 button {
   border: none;
   background-color: inherit;
@@ -37,4 +33,8 @@ button {
   max-width: 44rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.feed-list {
+  list-style-position: inside;
 }

@@ -16,7 +16,7 @@ export const StoryFeedRenderer: React.SFC<Props> = props => {
   return (
     <>
       <div className="feed">
-        <ol>
+        <ol className="feed-list">
           {props.stories.map(
             edge =>
               edge.node ? (
