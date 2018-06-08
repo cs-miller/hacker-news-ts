@@ -69,7 +69,8 @@ export default (): webpack.Configuration => {
     ],
     output: {
       filename: '[name].[hash].js',
-      path: resolve(__dirname, 'dist')
+      path: resolve(__dirname, 'dist'),
+      publicPath: '/dist'
     }
   };
 };
