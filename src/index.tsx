@@ -6,6 +6,7 @@ import { render } from 'react-dom';
 import { Client } from './Apollo/Client';
 import { App } from './App';
 import { Header } from './Header';
+import { UserContainer as User } from './Users/UserContainer';
 
 import Typography from 'typography';
 
@@ -29,10 +30,22 @@ import './css/index.css';
 
 render(
   <ApolloProvider client={Client}>
-    <Header />
-    <Router>
-      <App path="/" />
-    </Router>
+    <>
+      <Header />
+      <div className="app-main">
+        <Router>
+          <App default />
+          <App path="/jobs" />
+          <App path="/ask" />
+          <App path="/best" />
+          <App path="/new" />
+          <App path="/show" />
+
+          {/* <Thread path="/thread/:id" /> */}
+          <User path="/user/:username" />
+        </Router>
+      </div>
+    </>
   </ApolloProvider>,
   document.getElementById('root')
 );

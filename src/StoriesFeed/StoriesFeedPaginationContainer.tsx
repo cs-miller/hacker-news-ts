@@ -41,12 +41,14 @@ const query = gql`
   ${StoryCard_story}
 `;
 
-export const StoryFeedPaginationContainer = () => (
+export const StoryFeedPaginationContainer: React.SFC<{
+  type: FeedType;
+}> = props => (
   <TypedApolloQuery
     query={query}
     variables={{
-      type: FeedType.TOP,
-      count: 10
+      type: props.type,
+      count: 15
     }}
   >
     {({ data, loading, fetchMore }) => {
@@ -54,13 +56,14 @@ export const StoryFeedPaginationContainer = () => (
       return (
         <StoryFeedRenderer
           stories={getEdges(data)}
+          hasMore={getPageInfo(data).hasNextPage}
           onLoadMore={() =>
             fetchMore({
               query,
               variables: {
                 cursor: getPageInfo(data).endCursor,
-                count: 10,
-                type: FeedType.TOP
+                count: 30,
+                type: props.type
               },
               updateQuery: (previousResult, { fetchMoreResult }) => {
                 const newEdges = getEdges(fetchMoreResult);

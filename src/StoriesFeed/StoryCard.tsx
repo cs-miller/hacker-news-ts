@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { pathOr } from 'ramda';
 import React from 'react';
+import { Link } from '@reach/router';
 
 import { fromNow, toBaseURL, usernameColor } from '../utils';
 import { StoryCard_story as StoryCard_story_type } from './__generated__/StoryCard_story';
@@ -36,9 +37,12 @@ export const StoryCard: React.SFC<Props> = props => {
       )})`}</span>
       <p>
         {props.story.score} points by{' '}
-        <strong style={{ color: usernameColor(props.story.by.created) }}>
-          {props.story.by.hnId}
-        </strong>{' '}
+        <Link to={`/user/${props.story.by.hnId}`}>
+          {' '}
+          <strong style={{ color: usernameColor(props.story.by.created) }}>
+            {props.story.by.hnId}
+          </strong>
+        </Link>{' '}
         {fromNow(getTime(props))} | {props.story.descendants} comments
       </p>
     </li>

@@ -13,28 +13,36 @@ button {
   outline: none;
 }
 
-.feed {
-  background-color: #f7f4f4;
-}
-
 .load-more {
-  width: 40%;
+  width: 400%;
   margin-left: 30%;
   margin-right: 30%;
 }
 
 .header {
-  position: sticky;
   background-color: #ef6f2e;
+  position: sticky;
   top: 0px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.title {
+  margin: 0 0 0 0;
 }
 
 .app-main {
   max-width: 44rem;
   margin-left: auto;
   margin-right: auto;
+  background-color: #f7f4f4;
 }
 
 .feed-list {
   list-style-position: inside;
+}
+
+.top-link:visited {
+  color: black;
 }
