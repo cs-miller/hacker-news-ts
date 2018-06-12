@@ -2,7 +2,7 @@ import { RouteComponentProps } from '@reach/router';
 import React from 'react';
 
 import { FeedType } from './StoriesFeed/__generated__/StoriesFeedPaginationQuery';
-import { StoryFeedPaginationContainer } from './StoriesFeed/StoriesFeedPaginationContainer';
+import { StoriesFeedPaginationContainer } from './StoriesFeed/StoriesFeedPaginationContainer';
 
 export const App: React.SFC<RouteComponentProps> = props => {
   let type: FeedType;
@@ -27,5 +27,5 @@ export const App: React.SFC<RouteComponentProps> = props => {
       break;
   }
 
-  return <StoryFeedPaginationContainer type={type} />;
+  return <StoriesFeedPaginationContainer type={type} />;
 };

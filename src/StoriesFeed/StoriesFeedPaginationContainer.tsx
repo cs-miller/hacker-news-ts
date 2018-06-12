@@ -11,7 +11,7 @@ import {
   StoriesFeedPaginationQueryVariables
 } from './__generated__/StoriesFeedPaginationQuery';
 import { StoryCard_story } from './StoryCard';
-import { StoryFeedRenderer } from './StoryFeedRenderer';
+import { StoriesFeedRenderer } from './StoryFeedRenderer';
 
 class TypedApolloQuery extends Query<
   StoriesFeedPaginationQuery,
@@ -41,7 +41,7 @@ const query = gql`
   ${StoryCard_story}
 `;
 
-export const StoryFeedPaginationContainer: React.SFC<{
+export const StoriesFeedPaginationContainer: React.SFC<{
   type: FeedType;
 }> = props => (
   <TypedApolloQuery
@@ -54,7 +54,7 @@ export const StoryFeedPaginationContainer: React.SFC<{
     {({ data, loading, fetchMore }) => {
       if (loading) return <pre>Loading...</pre>;
       return (
-        <StoryFeedRenderer
+        <StoriesFeedRenderer
           stories={getEdges(data)}
           hasMore={getPageInfo(data).hasNextPage}
           onLoadMore={() =>

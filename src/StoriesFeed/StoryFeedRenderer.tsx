@@ -13,7 +13,7 @@ interface Props {
   hasMore: boolean;
 }
 
-export const StoryFeedRenderer: React.SFC<Props> = props => {
+export const StoriesFeedRenderer: React.SFC<Props> = props => {
   return (
     <>
       <ol className="feed-list">
