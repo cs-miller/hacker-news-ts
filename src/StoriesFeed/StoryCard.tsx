@@ -1,7 +1,7 @@
+import { Link } from '@reach/router';
 import gql from 'graphql-tag';
 import { pathOr } from 'ramda';
 import React from 'react';
-import { Link } from '@reach/router';
 
 import { fromNow, toBaseURL, usernameColor } from '../utils';
 import { StoryCard_story as StoryCard_story_type } from './__generated__/StoryCard_story';
@@ -53,4 +53,4 @@ const getUrl = (props: Props): string =>
   pathOr<string>('', ['story', 'url'], props);
 
 const getTime = (props: Props): number =>
-  pathOr<string>(Date.now().toString(), ['story', 'time'], props);
+  pathOr<number>(Date.now(), ['story', 'time'], props);
