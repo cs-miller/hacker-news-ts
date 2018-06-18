@@ -1,4 +1,4 @@
-import { RouteComponentProps } from '@reach/router';
+import { RouteComponentProps, Redirect } from '@reach/router';
 import gql from 'graphql-tag';
 import { pathOr } from 'ramda';
 import React from 'react';
@@ -37,8 +37,9 @@ export const UserContainer: React.SFC<
       userID: pathOr('', ['username'], props)
     }}
   >
-    {({ data, loading }) => {
+    {({ data, loading, error }) => {
       if (loading) return <pre>Loading...</pre>;
+      if (error) return <Redirect to="/404" />;
       return (
         <div>
           <p>user: {pathOr('', ['nodeFromHnId', 'hnId'], data)}</p>

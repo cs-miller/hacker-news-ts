@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 
 import { Client } from './Apollo/Client';
 import { App } from './App';
+import { Error } from './Error';
 import { Header } from './Header';
 import { UserContainer as User } from './Users/UserContainer';
 
@@ -43,6 +44,7 @@ render(
 
           {/* <Thread path="/thread/:id" /> */}
           <User path="/user/:username" />
+          <Error path="/404" />
         </Router>
       </div>
     </>

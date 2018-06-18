@@ -3,6 +3,7 @@ import { pathOr } from 'ramda';
 import React from 'react';
 import { Query } from 'react-apollo';
 
+import { Redirect } from '@reach/router';
 import {
   FeedType,
   StoriesFeedPaginationQuery,
@@ -51,8 +52,9 @@ export const StoriesFeedPaginationContainer: React.SFC<{
       count: 15
     }}
   >
-    {({ data, loading, fetchMore }) => {
+    {({ data, loading, error, fetchMore }) => {
       if (loading) return <pre>Loading...</pre>;
+      if (error) return <Redirect to="/404" />;
       return (
         <StoriesFeedRenderer
           stories={getEdges(data)}
