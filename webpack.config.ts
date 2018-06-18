@@ -1,3 +1,4 @@
+import CompressionPlugin from 'compression-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { resolve } from 'path';
@@ -69,6 +70,13 @@ export default (): webpack.Configuration => {
       new MiniCssExtractPlugin({
         filename: production ? '[name].[hash].css' : '[name].css',
         chunkFilename: production ? '[id].[hash].css' : '[id].css'
+      }),
+      new CompressionPlugin({
+        asset: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8
       })
     ],
     output: {
