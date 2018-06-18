@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node src/server.js",
     "build": "TS_NODE_PROJECT=\"webpack-tsconfig.json\" webpack --require ts-node/register",
-    "build:prod": "NODE_ENV='production' yarn build",
+    "prebuild": "rimraf ./dist",
+    "build:prod": "cross-env NODE_ENV=production yarn build",
     "now-build": "yarn build:prod",
     "serve": "ts-node --project ./webpack-tsconfig.json ./node_modules/.bin/webpack-serve",
     "generate": "apollo-codegen generate src/**/*.tsx --project-name hacker-news-ts --target typescript-modern --add-typename"
@@ -53,6 +54,7 @@
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.7.0",
     "compression-webpack-plugin": "^1.1.11",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",
     "file-loader": "^1.1.11",
@@ -62,6 +64,7 @@
     "mini-css-extract-plugin": "^0.4.0",
     "postcss-loader": "^2.1.5",
     "prettier": "^1.13.5",
+    "rimraf": "^2.6.2",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.1",
     "ts-node": "^6.1.1",
