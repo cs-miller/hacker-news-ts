@@ -24,7 +24,11 @@ export default (): webpack.Configuration => {
               loader: 'babel-loader',
               options: {
                 presets: ['env'],
-                plugins: ['graphql-tag', 'syntax-dynamic-import']
+                plugins: [
+                  'graphql-tag',
+                  'syntax-dynamic-import',
+                  ['ramda', { useES: true }]
+                ]
               }
             },
             { loader: 'ts-loader' }
