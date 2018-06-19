@@ -17,6 +17,7 @@ export interface StoriesFeedPaginationQuery_storyFeed_edges_node_by {
 export interface StoriesFeedPaginationQuery_storyFeed_edges_node {
   __typename: "Story";
   id: string;                                              // The globally unique relay id
+  hnId: string;                                            // The item's unique id
   title: string | null;                                    // The title
   url: string | null;                                      // The url of the story
   time: number | null;                                     // Creation date of the story, in Unix Time

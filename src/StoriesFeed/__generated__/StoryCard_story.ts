@@ -17,6 +17,7 @@ export interface StoryCard_story_by {
 export interface StoryCard_story {
   __typename: "Story";
   id: string;                  // The globally unique relay id
+  hnId: string;                // The item's unique id
   title: string | null;        // The title
   url: string | null;          // The url of the story
   time: number | null;         // Creation date of the story, in Unix Time

@@ -17,6 +17,14 @@ button {
   outline: none;
 }
 
+.card {
+  padding: 0.5em;
+}
+
+.card > span {
+  color: lightgrey;
+}
+
 .load-more {
   width: 40%;
   margin-left: 30%;
