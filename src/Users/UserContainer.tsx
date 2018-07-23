@@ -1,6 +1,6 @@
-import { RouteComponentProps } from '@reach/router';
+import { Redirect, RouteComponentProps } from '@reach/router';
 import gql from 'graphql-tag';
-import { pathOr } from 'ramda';
+import { pathOr, propOr } from 'ramda';
 import React from 'react';
 import { Query } from 'react-apollo';
 
@@ -34,7 +34,7 @@ export const UserContainer: React.SFC<
   <TypedApolloQuery
     query={query}
     variables={{
-      userID: pathOr('', ['username'], props)
+      userID: propOr('', 'username', props)
     }}
   >
     {({ data, loading }) => {
