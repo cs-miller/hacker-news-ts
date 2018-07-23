@@ -7,6 +7,7 @@ import { Client } from './Apollo/Client';
 import { App } from './App';
 import { Error } from './Error';
 import { Header } from './Header';
+import { ThreadContainer as Thread } from './Thread/ThreadContainer';
 import { UserContainer as User } from './Users/UserContainer';
 
 import Typography from 'typography';
@@ -42,7 +43,7 @@ render(
           <App path="/new" />
           <App path="/show" />
 
-          {/* <Thread path="/thread/:id" /> */}
+          <Thread path="/thread/:storyId" />
           <User path="/user/:username" />
           <Error path="/404" />
         </Router>
